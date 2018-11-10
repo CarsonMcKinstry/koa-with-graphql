@@ -3,8 +3,8 @@ type Link {
   createdAt: DateTime!
   description: String!
   url: String!
-  postedBy: User @relation(name: "UserOnLink")
-  votes: [Vote!]! @relation(name: "LinkOnVote")
+  postedBy: User 
+  votes: [Vote!]! 
 }
 
 type User {
@@ -12,12 +12,12 @@ type User {
   name: String!
   email: String! @unique
   password: String!
-  links: [Link!]! @relation(name: "UserOnLink")
-  votes: [Vote!]! @relation(name: "UserOnVote")
+  links: [Link!]! 
+  votes: [Vote!]! 
 }
 
 type Vote {
   id: ID! @unique
-  link: Link! @relation(name: "LinkOnVote")
-  user: User! @relation(name: "UserOnVote")
+  link: Link! 
+  user: User! 
 }
