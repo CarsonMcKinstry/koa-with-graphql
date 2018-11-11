@@ -17,6 +17,7 @@ type User {
 }
 
 type Vote {
+  random: Boolean
   id: ID! @unique
   link: Link! @relation(name: "LinkOnVote")
   user: User! @relation(name: "UserOnVote")
