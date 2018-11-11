@@ -1,20 +1,11 @@
 import { Context } from 'koa';
-import { Prisma } from './generated/prisma-client';
-
-export interface ApolloContext {
-  ctx: Context,
-  db: Prisma
-}
+import { Prisma } from 'prisma-binding';
 
 export interface AuthPayload {
   userId: string
 }
 
-export type ContextFn = (req: Context) => ApolloContext;
-
-export type Resolver<T> = (
-  root: any,
-  args: { [key: string]: any },
-  context: ApolloContext,
-  info: string
-) => T;
+export interface KoaContext {
+  ctx: Context,
+  db?: Prisma
+}

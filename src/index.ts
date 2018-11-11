@@ -1,4 +1,4 @@
-import { default as Koa } from 'koa';
+import { default as Koa, Context } from 'koa';
 import { ApolloServer, gql } from 'apollo-server-koa';
 import { importSchema } from 'graphql-import';
 
@@ -16,7 +16,14 @@ const server = new ApolloServer({
   context,
 });
 
+
+
 const app = new Koa();
+
+app.use((ctx: Context, next) => {
+  console.log(ctx.request.rawBody);
+  return next();
+});
 
 server.applyMiddleware({ app });
 server.installSubscriptionHandlers(app.listen(port, host, () =>

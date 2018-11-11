@@ -13,7 +13,7 @@
     "deploy": "prisma deploy",
     "docker-start": "docker-compose up -d",
     "docker-stop": "docker-compose down",
-    "types": "ts-node ./bin/getTypes.ts"
+    "get-types": "ts-node ./bin/getTypes.ts"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",

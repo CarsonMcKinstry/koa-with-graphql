@@ -1,5 +1,4 @@
 import { Context } from 'koa';
-// import { prisma } from './generated/prisma-client/index';
 import { Prisma } from 'prisma-binding';
 
 const context = (req: { ctx: Context }) => ({

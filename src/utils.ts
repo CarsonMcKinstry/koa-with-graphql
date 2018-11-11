@@ -1,9 +1,9 @@
-import { ApolloContext, AuthPayload } from './types';
+import { AuthPayload, KoaContext } from './types';
 import jwt from 'jsonwebtoken';
 
 export const APP_SECRET = `GraphQL-is-aw3some`;
 
-export function getUserId(context: ApolloContext) {
+export function getUserId(context: KoaContext) {
   const Authorization = context.ctx.request.get('Authorization');
 
   if (Authorization) {
