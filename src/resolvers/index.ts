@@ -1,13 +1,16 @@
+import { IResolverObject } from 'apollo-server-koa';
 import * as Query from './Query';
 import * as Mutation from './Mutation';
 import * as Feed from './Feed';
-import * as Subscription from './Subscription';
 import * as AuthPayload from './AuthPayload';
+import * as Subscription from './Subscription';
 
-export default {
+const resolvers = {
   Query,
-  Mutation,
+  Mutation: (Mutation as IResolverObject), // wut
   Feed,
+  AuthPayload,
   Subscription,
-  AuthPayload
 }
+
+export default resolvers;

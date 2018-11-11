@@ -1,10 +1,13 @@
 import { ResolverFn } from 'apollo-server-koa';
-import { Resolver } from '../types';
-import { Link } from '../generated/prisma-client/prisma-schema';
+import { 
+  QueryToInfoResolver,
+  QueryToFeedResolver,
+  GQLLink
+} from '../schema.d';
 
-export const info: Resolver<string> = () => 'Hello World';
+export const info: QueryToInfoResolver = () => 'Hello World';
 
-export const feed: ResolverFn = async (root, args, context, info) => {
+export const feed: QueryToFeedResolver = async (root, args, context, info) => {
   const where = args.filter
   ? {
     OR: [
@@ -33,6 +36,6 @@ const linksConnection = await context.db.query.linksConnection({}, countSelectio
 
 return {
   count: linksConnection.aggregate.count,
-  linkIds: queriedLinks.map((link: Link) => link.id),
+  linkIds: queriedLinks.map((link: GQLLink) => link.id),
 }
 }

@@ -1,10 +1,16 @@
-import { ResolverFn } from 'apollo-server-koa';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+import { 
+  MutationToSignupResolver, 
+  MutationToLoginResolver,
+  MutationToPostResolver, 
+  MutationToVoteResolver
+} from '../schema.d';
+
 import { getUserId, APP_SECRET } from '../utils';
 
-export const signup: ResolverFn = async (root, args, context, info) => {
+export const signup: MutationToSignupResolver = async (root, args, context, info) => {
   const password = await bcrypt.hash(args.password, 10);
   const user = await context.db.mutation.createUser({
     data: {
@@ -19,9 +25,9 @@ export const signup: ResolverFn = async (root, args, context, info) => {
     token,
     user,
   }
-}
+} 
 
-export const login: ResolverFn = async (root, args, context, info) => {
+export const login: MutationToLoginResolver = async (root, args, context, info) => {
   const user = await context.db.query.user({ where: { email: args.email }}, `{ id password }`);
   if (!user) {
     throw new Error('No such user found');
@@ -43,7 +49,7 @@ export const login: ResolverFn = async (root, args, context, info) => {
   }
 }
 
-export const post: ResolverFn = (root, args, context, info) => {
+export const post: MutationToPostResolver = (root, args, context, info) => {
   const userId = getUserId(context);
   return context.db.mutation.createLink(
     {
@@ -57,7 +63,7 @@ export const post: ResolverFn = (root, args, context, info) => {
   )
 }
 
-export const vote: ResolverFn = async (root, args, context, info) => {
+export const vote: MutationToVoteResolver = async (root, args, context, info) => {
   const userId = getUserId(context);
 
   const linkExists = await context.db.exists.Vote({

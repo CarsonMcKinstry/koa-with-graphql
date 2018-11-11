@@ -1,9 +1,9 @@
-import { ContextFn } from './types';
-import { Prisma } from './generated/prisma-client/index';
+import { Context } from 'koa';
+import { prisma } from './generated/prisma-client/index';
 
-const context: ContextFn = (req) => ({
+const context = (req: { ctx: Context }) => ({
   ...req,
-  db: Prisma
+  db: prisma
 });
 
 export default context;
